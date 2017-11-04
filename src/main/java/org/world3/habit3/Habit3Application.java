@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Habit3Applicaiton {
+public class Habit3Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Habit3Applicaiton.class, args);
+        SpringApplication.run(Habit3Application.class, args);
     }
 }

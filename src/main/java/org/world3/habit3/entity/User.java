@@ -1,54 +1,89 @@
 package org.world3.habit3.entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import javax.validation.constraints.Size;
 import java.util.List;
 
+
+@Document(collection = "user")
 public class User {
-	
-	private long userId;
-	
-	private UserCredential credential;
-	
-	private UserProfile profile;
-	
-	private List<Goal> goals;
-	
-	public User(UserCredential credential, UserProfile profile) {
-		this.credential = credential;
-		this.profile = profile;
-	}
-	
-	public void addGoal(Goal goal) {
-		this.goals.add(goal);
-	}
 
-	public Goal removeGoal(Goal goal) {
-		//TODO remove goals
-		return goal;
-	}
-	
-	public long getUserId() {
-		return userId;
-	}
+    public enum Role {
+        USER,
+        ADMIN
+    }
 
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
+	@Id
+	private String id;
 
-	public UserCredential getCredential() {
-		return credential;
-	}
+	@NotEmpty
+    @Size(min=6, max=128)
+    @Indexed(unique = true)
+	private String userId;
 
-	public void setCredential(UserCredential credential) {
-		this.credential = credential;
-	}
+	@NotEmpty
+    @Size(min=8, max=20)
+    @Transient
+	private String password;
 
-	public UserProfile getProfile() {
-		return profile;
-	}
+	@Field("password")
+	private String encryptedPassword;
 
-	public void setProfile(UserProfile profile) {
-		this.profile = profile;
-	}
-	
-	
+	private String email;
+
+	private List<String> roles;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEncryptedPassword() {
+        return encryptedPassword;
+    }
+
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
 }
